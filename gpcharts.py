@@ -308,7 +308,15 @@ class figure:
     def __str__(self):
         return self.javascript
 
-    # Returns the drawFigure function from the JavaScript in its entirety.
+    # Private function that returns a JavaScript option. Key and value are str.
+    def _formatted_other_option(self, key, value):
+        # The 12 spaces maintain the indentation level of the code for the next
+        # other option. The first other option is already at 12 spaces because
+        # of the # HTML template. Without the 12 spaces, subsequent other
+        # options would just be on the next line with no indentation.
+        return key + ': ' + value + ',\n' + (' ' * 12)
+
+    # Returns the drawChart function from the JavaScript in its entirety.
     def get_drawChart(self):
         tabwidth = 4
 
@@ -382,7 +390,7 @@ class figure:
         other = ''
 
         for option in kwargs:
-            other += option + ': ' + kwargs[option] + ',\n'
+            other += self._formatted_other_option(option, kwargs[option])
 
         #input argument format to template is in dictionary format (see template for where variables are inserted)
         argDict = { 'data': str(data),
@@ -427,7 +435,7 @@ class figure:
             other = 'trendlines: { 0: {showR2: true, visibleInLegend: true} },\n'
 
         for option in kwargs:
-            other += option + ': ' + kwargs[option] + ',\n'
+            other += self._formatted_other_option(option, kwargs[option])
 
         #input argument format to template is in dictionary format (see template for where variables are inserted)
         argDict = { 'data':str(data),
@@ -463,7 +471,7 @@ class figure:
         other = ''
 
         for option in kwargs:
-            other += option + ': ' + kwargs[option] + ',\n'
+            other += self._formatted_other_option(option, kwargs[option])
 
         #input argument format to template is in dictionary format (see template for where variables are inserted)
         argDict = { 'data':str(data),
@@ -499,7 +507,7 @@ class figure:
         other = ''
 
         for option in kwargs:
-            other += option + ': ' + kwargs[option] + ',\n'
+            other += self._formatted_other_option(option, kwargs[option])
             
         #input argument format to template is in dictionary format (see template for where variables are inserted)
         argDict = { 'data':str(data),
